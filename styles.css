@@ -920,29 +920,35 @@ section {
 /* BOOKING SECTION */
 .booking-section {
   background: var(--bg-secondary);
+  padding: 80px 0;
 }
 
 .booking-wrapper {
-  background: var(--bg-surface);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--border-gold);
-  padding: 56px 48px;
-  max-width: 920px;
+  background: #FFFFFF;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  border: 1px solid #E8E8E8;
+  padding: 44px 40px;
+  max-width: 680px;
   margin: 0 auto;
   position: relative;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .booking-form {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+  gap: 20px;
+  width: 100%;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .form-group.full-width {
@@ -950,50 +956,106 @@ section {
 }
 
 .form-group label {
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: var(--text-main);
+  font-size: 12px;
+  font-weight: 700;
+  color: #1F1F1F;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .form-group label span {
-  color: var(--error);
+  color: #E74C3C;
+  font-weight: 700;
 }
 
+/* Neutral Default Input Borders & Touch-Friendly Sizing */
 .form-control {
-  padding: 14px 18px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border-light);
-  background: #FAFAFA;
-  color: var(--text-main);
-  font-size: 0.95rem;
-  transition: all var(--transition-fast);
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid #E8E8E8;
+  background-color: #FFFFFF;
+  color: #1F1F1F;
+  font-size: 16px; /* Prevents mobile browser auto-zoom */
+  line-height: 1.4;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Disable default browser invalid pseudo-class red borders */
+.form-control:invalid,
+.form-control:user-invalid {
+  border-color: #E8E8E8;
+  box-shadow: none;
 }
 
 .form-control:hover {
-  background: #FFFFFF;
-  border-color: #CCC;
+  border-color: #CCCCCC;
 }
 
 .form-control:focus {
-  background: #FFFFFF;
-  border-color: var(--primary-gold);
-  box-shadow: 0 0 0 3px var(--gold-glow);
+  border-color: #D4AF37;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+  background-color: #FFFFFF;
 }
 
+/* Distinct Light Gray Placeholder Text (#999) */
+.form-control::placeholder {
+  color: #999999 !important;
+  opacity: 1 !important;
+  font-weight: 400 !important;
+}
+
+.form-control::-webkit-input-placeholder {
+  color: #999999 !important;
+  opacity: 1 !important;
+  font-weight: 400 !important;
+}
+
+.form-control::-moz-placeholder {
+  color: #999999 !important;
+  opacity: 1 !important;
+  font-weight: 400 !important;
+}
+
+/* Select Dropdown Styling with Custom Arrow Indicator */
+select.form-control {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 16px;
+  padding-right: 42px;
+  cursor: pointer;
+}
+
+/* Textarea custom styling */
+textarea.form-control {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Error State ONLY after explicit JS .error class addition */
 .form-control.error {
-  border-color: var(--error);
-  background: var(--error-bg);
+  border-color: #E74C3C !important;
+  background-color: #FFF8F8 !important;
 }
 
 .error-message {
-  font-size: 0.8rem;
-  color: var(--error);
+  font-size: 12px;
+  color: #E74C3C;
+  margin-top: 4px;
   display: none;
+  font-weight: 500;
 }
 
-.form-control.error + .error-message {
+.form-control.error ~ .error-message {
   display: block;
 }
 
@@ -1002,23 +1064,31 @@ section {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+  margin-top: 4px;
 }
 
 .time-chip {
-  padding: 8px 16px;
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-full);
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 22px;
+  border: 1px solid #E8E8E8;
   background: #FAFAFA;
-  font-size: 0.85rem;
+  color: #1F1F1F;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 200ms ease;
+  user-select: none;
 }
 
 .time-chip.selected, .time-chip:hover {
-  background: var(--primary-gold);
-  color: #121212;
-  border-color: var(--primary-gold);
+  background: #D4AF37;
+  color: #FFFFFF;
+  border-color: #D4AF37;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
 }
 
 .submit-btn-wrapper {
@@ -1029,9 +1099,9 @@ section {
 
 .submit-btn-wrapper .btn {
   width: 100%;
-  max-width: 360px;
-  padding: 16px 36px;
-  font-size: 1rem;
+  max-width: 380px;
+  height: 48px;
+  font-size: 15px;
 }
 
 /* SUCCESS MODAL / OVERLAY */
@@ -1041,17 +1111,17 @@ section {
   left: 0;
   right: 0;
   bottom: 0;
-  background: var(--bg-surface);
-  border-radius: var(--radius-lg);
+  background: #FFFFFF;
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 40px;
+  padding: 32px 24px;
   opacity: 0;
   visibility: hidden;
-  transition: all var(--transition-normal);
+  transition: all 300ms ease;
   z-index: 20;
 }
 
@@ -1061,16 +1131,16 @@ section {
 }
 
 .checkmark-circle {
-  width: 80px;
-  height: 80px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
-  background: var(--success-bg);
-  color: var(--success);
+  background: #E8F8F5;
+  color: #27AE60;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.5rem;
-  margin-bottom: 24px;
+  font-size: 2.2rem;
+  margin-bottom: 20px;
   box-shadow: 0 0 20px rgba(39, 174, 96, 0.2);
   animation: popIn 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -1081,14 +1151,17 @@ section {
 }
 
 .success-overlay h3 {
-  font-size: 2rem;
+  font-size: 1.8rem;
   margin-bottom: 12px;
+  color: #1F1F1F;
 }
 
 .success-overlay p {
-  color: var(--text-muted);
-  max-width: 480px;
-  margin-bottom: 28px;
+  color: #666666;
+  max-width: 440px;
+  margin-bottom: 24px;
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
 /* CONTACT SECTION */
@@ -1281,14 +1354,37 @@ section {
   .team-grid {
     grid-template-columns: 1fr;
   }
+  .booking-wrapper {
+    padding: 24px 16px;
+    border-radius: 12px;
+    width: 100%;
+  }
   .booking-form {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
   .form-group.full-width {
     grid-column: span 1;
   }
   .submit-btn-wrapper {
     grid-column: span 1;
+    margin-top: 8px;
+    width: 100%;
+  }
+  .submit-btn-wrapper .btn {
+    width: 100%;
+    max-width: 100%;
+    height: 48px;
+    font-size: 15px;
+  }
+  .time-chips {
+    gap: 8px;
+  }
+  .time-chip {
+    flex: 1 1 calc(33.333% - 8px);
+    min-width: 85px;
+    padding: 0 8px;
   }
   .contact-grid {
     grid-template-columns: 1fr;

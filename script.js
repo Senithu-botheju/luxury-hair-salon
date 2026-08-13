@@ -212,6 +212,52 @@ function initBookingForm() {
 
   if (!bookingForm) return;
 
+  const name = document.getElementById('fullName');
+  const email = document.getElementById('email');
+  const phone = document.getElementById('phone');
+  const service = document.getElementById('service');
+  const date = document.getElementById('preferredDate');
+
+  const requiredFields = [name, email, phone, service, date].filter(Boolean);
+
+  // Clear errors on page load
+  requiredFields.forEach(field => {
+    field.classList.remove('error');
+    
+    // Clear error state on user input/typing
+    field.addEventListener('input', () => {
+      field.classList.remove('error');
+    });
+
+    field.addEventListener('change', () => {
+      field.classList.remove('error');
+    });
+
+    // Validate only when user leaves field (blur)
+    field.addEventListener('blur', () => {
+      validateField(field);
+    });
+  });
+
+  function validateField(field) {
+    if (!field) return true;
+    let valid = true;
+
+    if (!field.value.trim()) {
+      valid = false;
+    } else if (field.type === 'email') {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      valid = emailRegex.test(field.value.trim());
+    }
+
+    if (!valid) {
+      field.classList.add('error');
+    } else {
+      field.classList.remove('error');
+    }
+    return valid;
+  }
+
   // Time chip selector
   timeChips.forEach(chip => {
     chip.addEventListener('click', () => {
@@ -226,34 +272,23 @@ function initBookingForm() {
   bookingForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const name = document.getElementById('fullName');
-    const email = document.getElementById('email');
-    const phone = document.getElementById('phone');
-    const service = document.getElementById('service');
-    const date = document.getElementById('preferredDate');
-
     let isValid = true;
+    let firstInvalid = null;
 
-    // Validate inputs
-    [name, email, phone, service, date].forEach(input => {
-      if (!input) return;
-      if (!input.value.trim()) {
-        input.classList.add('error');
+    requiredFields.forEach(field => {
+      if (!validateField(field)) {
         isValid = false;
-      } else {
-        input.classList.remove('error');
+        if (!firstInvalid) firstInvalid = field;
       }
     });
 
-    if (email && email.value.trim()) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email.value)) {
-        email.classList.add('error');
-        isValid = false;
+    if (!isValid) {
+      if (firstInvalid) {
+        firstInvalid.focus();
+        firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
+      return;
     }
-
-    if (!isValid) return;
 
     // Submit animation feedback
     const submitBtn = bookingForm.querySelector('button[type="submit"]');
@@ -272,7 +307,8 @@ function initBookingForm() {
         successOverlay.classList.add('active');
       }
       bookingForm.reset();
-    }, 1000);
+      requiredFields.forEach(f => f.classList.remove('error'));
+    }, 800);
   });
 
   if (closeSuccessBtn) {
