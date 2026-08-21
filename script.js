@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileMenu();
 });
 
-/* 1. STICKY NAVBAR & SMOOTH SCROLL */
+/* 1. STICKY NAVBAR */
+
 function initNavbar() {
   const navbar = document.querySelector('.navbar');
   const navLinks = document.querySelectorAll('.nav-link');
